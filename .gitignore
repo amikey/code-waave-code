@@ -1,0 +1,8 @@
+*~
+*.log
+build
+html
+latex
+autom4te.cache
+
+
