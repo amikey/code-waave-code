@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.65])
-AC_INIT([waave], [2.04], [BUG-REPORT-ADDRESS])
+AC_INIT([waave], [2.05], [waave-user@lists.sourceforge.net])
 AM_INIT_AUTOMAKE
 LT_INIT
 

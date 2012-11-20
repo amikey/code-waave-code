@@ -218,7 +218,7 @@ int WV_decodeAudio(AVCodecContext* codec, AVFrame* frame, int* gotFrame, AVPacke
 int WV_resampleAudio(struct SwrContext *swrCtx, uint8_t* destBuffer, AVFrame* frame)
 {
 #if HAVE_AUDIO_DECODE_RESAMPLE
-  const uint8_t* in[] = {frame->data[0]};
+  const uint8_t** in = (const uint8_t **)frame->extended_data;
   uint8_t* out[] = {destBuffer};
   return swr_convert(swrCtx, out, WV_DECODE_TARGET_SAMPLES, in, frame->WVnb_samples);
 #else
