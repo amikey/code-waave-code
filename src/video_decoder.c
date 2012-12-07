@@ -810,6 +810,14 @@ static void loadVideoFrame(VideoBitStream* videoStream, AVFrame* decodedFrame)
 	    outputBuffer->data, outputBuffer->linesize);
 
 
+  /***********************/
+  /* check buffer filter */
+  /***********************/
+  if(streamObj->filterBuffer)
+    streamObj->filterBuffer(streamObj, videoStream->writePos);
+
+
+
   /************************/
   /* check release method */
   /************************/

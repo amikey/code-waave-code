@@ -263,6 +263,7 @@ WVStreamingObject* WV_getStreamRendererObj(SDL_Renderer* targetRenderer, SDL_Rec
   streamObj->init = &init_streamRenderer;
   streamObj->getBuffer = &getBuffer_streamRenderer;
   streamObj->lockBuffer = NULL;
+  streamObj->filterBuffer = NULL;
   streamObj->releaseBuffer = &releaseBuffer_streamRenderer;
   streamObj->refreshFrame = &refreshFrame_streamRenderer;
   streamObj->close = &close_streamRenderer;

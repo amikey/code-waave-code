@@ -238,6 +238,22 @@ typedef struct WVStreamingObject{
   int (*lockBuffer)(struct WVStreamingObject* streamObj, int slotIdx);
 
 
+
+  /**
+   * \brief Filter the buffer with a user defined method
+   *
+   * \param streamObj The streaming object 
+   * \param slotIdx The associated slot index   
+   *
+   * Apply a filter after the decoding step. **Need to be thread safe** it
+   * will be called by the video decoder thread. If it's not put the 
+   * method in the releaseBuffer step. If this action is not needed set to NULL.
+   *
+   */
+  int (*filterBuffer)(struct WVStreamingObject* streamObj, int slotIdx);
+  
+
+
   /**
    * \brief Release the buffer after writing
    *

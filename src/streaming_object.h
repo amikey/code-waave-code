@@ -105,10 +105,14 @@ typedef struct WVStreamingObject{
   /* !!! NULL if useless !!! */
   int (*lockBuffer)(struct WVStreamingObject* streamObj, int slotIdx);
 
+  /* filter the buffer with the user method */
+  /* !!! need to be thread safe !!! */
+  /* else filter in releaseBuffer */
+  int (*filterBuffer)(struct WVStreamingObject* streamObj, int slotIdx);
+
   /* release the buffer after writing */
   /* !!! NULL if useless !!! */
   int (*releaseBuffer)(struct WVStreamingObject* streamObj, int slotIdx);
-
 
   /* refresh the frame by displaying his content */
   int (*refreshFrame)(struct WVStreamingObject* streamObj, int slotIdx);
