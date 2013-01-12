@@ -108,7 +108,7 @@ typedef struct WVStreamingObject{
   /* filter the buffer with the user method */
   /* !!! need to be thread safe !!! */
   /* else filter in releaseBuffer */
-  int (*filterBuffer)(struct WVStreamingObject* streamObj, int slotIdx);
+  int (*filterBuffer)(struct WVStreamingObject* streamObj, int slotIdx, WVStreamingBuffer* buffer);
 
   /* release the buffer after writing */
   /* !!! NULL if useless !!! */

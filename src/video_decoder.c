@@ -814,7 +814,7 @@ static void loadVideoFrame(VideoBitStream* videoStream, AVFrame* decodedFrame)
   /* check buffer filter */
   /***********************/
   if(streamObj->filterBuffer)
-    streamObj->filterBuffer(streamObj, videoStream->writePos);
+    streamObj->filterBuffer(streamObj, videoStream->writePos, outputBuffer);
 
 
 

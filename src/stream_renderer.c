@@ -38,7 +38,8 @@ typedef struct StreamRendererPrivate{
   /* user params */
   SDL_Renderer* targetRenderer;
   SDL_Rect userDestRect;
-
+  int updateFlag;
+  
   /* the object textures */
   SDL_Rect targetRect;
   SDL_Texture** slotTexture;
@@ -197,7 +198,8 @@ static int refreshFrame_streamRenderer(WVStreamingObject* streamObj, int slotIdx
 		 &objPrivate->targetRect);
 
   /* show */
-  SDL_RenderPresent(objPrivate->targetRenderer);
+  if(objPrivate->updateFlag)
+    SDL_RenderPresent(objPrivate->targetRenderer);
   
   return 0;
 }
@@ -223,7 +225,7 @@ static int close_streamRenderer(WVStreamingObject* streamObj)
 }
 
 
-WVStreamingObject* WV_getStreamRendererObj(SDL_Renderer* targetRenderer, SDL_Rect* userDestRect)
+WVStreamingObject* WV_getStreamRendererObj(SDL_Renderer* targetRenderer, SDL_Rect* userDestRect, int updateFlag)
 {
   /* alloc the struct */
   WVStreamingObject* streamObj;
@@ -244,6 +246,8 @@ WVStreamingObject* WV_getStreamRendererObj(SDL_Renderer* targetRenderer, SDL_Rec
     objPrivate->userDestRect.w = 0; //this say we doesn't have a user rect
     objPrivate->userDestRect.h = 0;
   }
+
+  objPrivate->updateFlag = updateFlag;
 
   /**********************/
   /* fill object params */

@@ -1,5 +1,5 @@
-#ifndef STREAM_RENDERER_H
-#define STREAM_RENDERER_H
+#ifndef STREAM_SURFACE_H
+#define STREAM_SURFACE_H
 
 /*
  *  waave, a modular audio/video engine
@@ -31,21 +31,14 @@
 #include "streaming_object.h"
 
 /*!!!!!!!!!!!!!!!!!!!!!!!*/
-/*    only for SDL >2.0  */
+/*    only for SDL 1.2   */
 /*!!!!!!!!!!!!!!!!!!!!!!!*/
-#if SDL_VERSION_ATLEAST(2,0,0)
+#if !SDL_VERSION_ATLEAST(2,0,0)
+ 
+WVStreamingObject* WV_getStreamSurfaceObj(SDL_Surface* targetSurface, SDL_Rect* userDestRect, int updateFlag);
+void WV_freeStreamSurfaceObj(WVStreamingObject* streamObj);
+void WV_resetStreamSurfaceOutput(WVStreamingObject* streamObj, SDL_Surface* targetSurface, SDL_Rect* userDestRect);
 
-/* get the object */
-WVStreamingObject* WV_getStreamRendererObj(SDL_Renderer* targetRenderer, SDL_Rect* destRect, int updateFlag);
-
-/* reset */
-void WV_resetStreamRendererOutput(WVStreamingObject* streamObj, SDL_Renderer* targetRenderer, SDL_Rect* destRect);
-
-
-/* free the object */
-void WV_freeStreamRendererObj(WVStreamingObject* streamObj);
 
 #endif
-
-
 #endif

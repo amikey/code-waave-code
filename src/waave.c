@@ -286,6 +286,43 @@ int WV_getStreamType(WVStream* stream)
   return stream->type;
 }
 
+int WV_getStreamWidth(WVStream* stream)
+{
+  /* check stream */
+  if(!stream)
+    return -1;
+
+  /* check if we have video */
+  int type = stream->type;
+  if(type != WV_STREAM_TYPE_VIDEO && type != WV_STREAM_TYPE_AUDIOVIDEO)
+    return -1;
+
+  /* get the video stream */
+  AVStream* ffmpegStream = stream->formatCtx->streams[stream->videoStreamIdx];
+
+  /* return width */
+  return ffmpegStream->codec->width;
+}
+
+
+int WV_getStreamHeight(WVStream* stream)
+{
+  /* check stream */
+  if(!stream)
+    return -1;
+
+  /* check if we have video */
+  int type = stream->type;
+  if(type != WV_STREAM_TYPE_VIDEO && type != WV_STREAM_TYPE_AUDIOVIDEO)
+    return -1;
+
+  /* get the video stream */
+  AVStream* ffmpegStream = stream->formatCtx->streams[stream->videoStreamIdx];
+
+  /* return width */
+  return ffmpegStream->codec->height;
+}
+
 
 int WV_disableAudio(WVStream* stream)
 {

@@ -244,13 +244,14 @@ typedef struct WVStreamingObject{
    *
    * \param streamObj The streaming object 
    * \param slotIdx The associated slot index   
+   * \param buffer The buffer previously given
    *
    * Apply a filter after the decoding step. **Need to be thread safe** it
-   * will be called by the video decoder thread. If it's not put the 
+   * will be called by the video decoder thread. If it's not, put the 
    * method in the releaseBuffer step. If this action is not needed set to NULL.
    *
    */
-  int (*filterBuffer)(struct WVStreamingObject* streamObj, int slotIdx);
+  int (*filterBuffer)(struct WVStreamingObject* streamObj, int slotIdx, WVStreamingBuffer* buffer);
   
 
 
@@ -702,6 +703,26 @@ WVStream* WV_closeStream(WVStream* stream);
  *
  */
 int WV_getStreamType(WVStream* stream);
+
+/**
+ * \brief Get the stream width 
+ *
+ * \param stream The stream you want the width
+ * 
+ * Return the stream width or -1 if the stream doesn't contain video
+ *
+ */
+int WV_getStreamWidth(WVStream* stream);
+
+/**
+ * \brief Get the stream height 
+ *
+ * \param stream The stream you want the height
+ * 
+ * Return the stream width or -1 if the stream doesn't contain video
+ *
+ */
+int WV_getStreamHeight(WVStream* stream);
 
 
 /**
@@ -1235,12 +1256,16 @@ int WV_shiftDBVolume(WVStream* stream, int shift);
  * \defgroup strandardoverlay Standard SDL 1.2 streaming objects
  *
  * There function permit to create standard streaming objects to stream
- * video on sdl surface using YUV overlays. Only for SDL 1.2 !
+ * video on sdl surface using YUV **overlay** or simply using **surface**. Only for SDL 1.2 !
  *  
  * @{
  */
 
 #if !SDL_VERSION_ATLEAST(2,0,0)
+
+  /****************/
+  /*   overlays   */
+  /****************/
 
 /**
  * \brief Get a new overlay streaming object
@@ -1281,6 +1306,53 @@ void WV_resetStreamOverlayOutput(WVStreamingObject* streamObj, SDL_Surface* targ
  */
 void WV_freeStreamOverlayObj(WVStreamingObject* streamObj);
 
+
+
+  /****************/
+  /*   surface    */
+  /****************/
+
+/**
+ * \brief Get a new surface streaming object
+ * 
+ * \param targetSurface The sdl surface where we want to stream video data.
+ * ** The surface you want ! **
+ * \param destRect The destination rectangle. All the surface if NULL;
+ * \param updateFlag Set it if you want that waave update the target surface with SDL_UpdateRect 
+ * 
+ * Create a new streaming object for an sdl surface. Be carefull to 
+ * use it only for one video stream !
+ *
+ */
+WVStreamingObject* WV_getStreamSurfaceObj(SDL_Surface* targetSurface, SDL_Rect* destRect, int updateFlag);
+
+/**
+ * \brief Change the target sdl surface of a surface streaming object
+ *
+ * \param streamObj The modified streaming object
+ * \param targetSurface The new target surface
+ * \param destRect The new destination rectangle. May be NULL.
+ *
+ * It's possible to change the target surface of a streaming object without
+ * recreate it. This can be done at any time ! Even if the stream is playing.
+ *
+ */
+void WV_resetStreamSurfaceOutput(WVStreamingObject* streamObj, SDL_Surface* targetSurface, SDL_Rect* destRect);
+
+
+/**
+ * \brief Free an surface streaming object
+ *
+ * \param streamObj The released streaming object
+ *
+ * Free a streaming object created with ::WV_getStreamSurfaceObj. Be carefull
+ * that the streaming object pointer is not reset.
+ *
+ */
+void WV_freeStreamSurfaceObj(WVStreamingObject* streamObj);
+
+
+
 #endif
 
 /** @} */
@@ -1317,12 +1389,13 @@ void WV_freeStreamOverlayObj(WVStreamingObject* streamObj);
  * 
  * \param targetRenderer The sdl renderer we use to stream video data
  * \param destRect The destination rectangle. The entire rendering target if NULL;
+ * \param updateFlag Set it if you want that waave update the target surface with SDL_RenderPresent 
  * 
  * Create a new streaming object for a sdl renderer. Be carefull to 
  * use it only for one video stream !
  *
  */
-WVStreamingObject* WV_getStreamRendererObj(SDL_Renderer* targetRenderer, SDL_Rect* destRect);
+  WVStreamingObject* WV_getStreamRendererObj(SDL_Renderer* targetRenderer, SDL_Rect* destRect, int updateFlag);
 
 
 /**

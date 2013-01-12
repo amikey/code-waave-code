@@ -1,6 +1,7 @@
 *~
 *.log
 build
+winbuild
 html
 latex
 autom4te.cache

@@ -78,7 +78,7 @@ am_libwaave_la_OBJECTS = waave_engine_flags.lo waave_ffmpeg.lo \
 	waave.lo audio_video_sync.lo clock_video_sync.lo eof_signal.lo \
 	packet_feeder.lo audio_decoder_eofs.lo audio_decoder_stops.lo \
 	audio_decoder_mods.lo audio_decoder.lo video_decoder.lo \
-	stream_overlay.lo stream_renderer.lo
+	stream_overlay.lo stream_surface.lo stream_renderer.lo
 libwaave_la_OBJECTS = $(am_libwaave_la_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -236,6 +236,7 @@ libwaave_la_SOURCES = common.h\
 		audio_decoder.c audio_decoder.h\
 		video_decoder.c video_decoder.h\
 		stream_overlay.c stream_overlay.h\
+		stream_surface.c stream_surface.h\
 		stream_renderer.c stream_renderer.h
 
 all: all-am
@@ -322,6 +323,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/packet_feeder.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stream_overlay.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stream_renderer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/stream_surface.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/video_decoder.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/waave.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/waave_engine_flags.Plo@am__quote@

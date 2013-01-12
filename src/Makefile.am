@@ -22,5 +22,6 @@ libwaave_la_SOURCES = common.h\
 		audio_decoder.c audio_decoder.h\
 		video_decoder.c video_decoder.h\
 		stream_overlay.c stream_overlay.h\
+		stream_surface.c stream_surface.h\
 		stream_renderer.c stream_renderer.h
 

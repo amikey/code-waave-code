@@ -258,7 +258,7 @@ WVStreamingObject* WV_getStreamOverlayObj(SDL_Surface* targetSurface, SDL_Rect* 
   streamObj->init = &init_streamOverlay;
   streamObj->getBuffer = &getBuffer_streamOverlay;
   streamObj->lockBuffer = &lockBuffer_streamOverlay;
-  streamobj->filterBuffer = NULL;
+  streamObj->filterBuffer = NULL;
   streamObj->releaseBuffer = &releaseBuffer_streamOverlay;
   streamObj->refreshFrame = &refreshFrame_streamOverlay;
   streamObj->close = &close_streamOverlay;
